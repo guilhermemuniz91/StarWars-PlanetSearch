@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-
-// initial commit
+import Table from './Components/Table';
 
 function App() {
   return (
-    <span>Hello, App!</span>
+    <Table />
   );
 }
 
