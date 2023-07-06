@@ -4,7 +4,11 @@ import planetContext from './Context';
 import fetchPlanets from '../Services/Api';
 
 function Provider({ children }) {
+  // estado para armazenar a lista de planetas
   const [planetList, setPlanetList] = useState([]);
+
+  // estado para armazenar o filtro de texto
+  const [inputFilter, setInputFilter] = useState('');
 
   const excludeResidents = (results) => {
     const newResults = [];
@@ -26,6 +30,8 @@ function Provider({ children }) {
 
   const globalStore = {
     planetList,
+    inputFilter,
+    setInputFilter,
   };
 
   return (
