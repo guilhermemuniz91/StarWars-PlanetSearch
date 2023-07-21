@@ -1,11 +1,29 @@
 import React, { useContext } from 'react';
 import planetContext from '../Context/Context';
 
-function Table() {
-  const { planetList } = useContext(planetContext);
+export default function Table() {
+  const { search, filtersList,
+    apiData,
+  } = useContext(planetContext);
+  let planetList = apiData;
+
+  const filterByNumericValues = (planetsFilter, filter) => {
+    const { column, comparision, value } = filter;
+    if (comparision === 'maior que') {
+      return planetsFilter.filter((planet) => Number(planet[column]) > Number(value));
+    }
+    if (comparision === 'menor que') {
+      return planetsFilter.filter((planet) => Number(planet[column]) < Number(value));
+    }
+    return planetsFilter.filter((planet) => Number(planet[column]) === Number(value));
+  };
+
+  filtersList.forEach((filter) => {
+    planetList = filterByNumericValues(planetList, filter);
+  });
 
   return (
-    <main>
+    <section>
       <table>
         <thead>
           <tr>
@@ -25,27 +43,27 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planetList.map((planet) => (
-            <tr key={ planet.name }>
-              <td>{ planet.name }</td>
-              <td>{ planet.rotation_period }</td>
-              <td>{ planet.orbital_period }</td>
-              <td>{ planet.diameter }</td>
-              <td>{ planet.climate }</td>
-              <td>{ planet.gravity }</td>
-              <td>{ planet.terrain }</td>
-              <td>{ planet.surface_water }</td>
-              <td>{ planet.population }</td>
-              <td>{ planet.films }</td>
-              <td>{ planet.created }</td>
-              <td>{ planet.edited }</td>
-              <td>{ planet.url }</td>
-            </tr>
-          ))}
+          {planetList
+            .filter((planetFilter) => planetFilter.name.includes(search.toLowerCase()))
+            .map((planet) => (
+              <tr key={ planet.name }>
+                <td>{ planet.name }</td>
+                <td>{ planet.rotation_period }</td>
+                <td>{ planet.orbital_period }</td>
+                <td>{ planet.diameter }</td>
+                <td>{ planet.climate }</td>
+                <td>{ planet.gravity }</td>
+                <td>{ planet.terrain }</td>
+                <td>{ planet.surface_water }</td>
+                <td>{ planet.population }</td>
+                <td>{ planet.films }</td>
+                <td>{ planet.created }</td>
+                <td>{ planet.edited }</td>
+                <td>{ planet.url }</td>
+              </tr>
+            ))}
         </tbody>
       </table>
-    </main>
+    </section>
   );
 }
-
-export default Table;

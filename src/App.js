@@ -2,12 +2,16 @@ import React from 'react';
 import './App.css';
 import Table from './Components/Table';
 import Provider from './Context/Provider';
-import Filters from './Components/Filters';
+import NumericFilters from './Components/NumericFilters';
+import NameFilter from './Components/NameFilter';
+import SelectedFilters from './Components/SelectedFilters';
 
 function App() {
   return (
     <Provider>
-      <Filters />
+      <NameFilter />
+      <NumericFilters />
+      <SelectedFilters />
       <Table />
     </Provider>
   );
