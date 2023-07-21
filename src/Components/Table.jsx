@@ -5,6 +5,7 @@ export default function Table() {
   const { search, filtersList,
     apiData,
     filters,
+    setSearch,
   } = useContext(planetContext);
   let planetList = apiData;
 
@@ -41,6 +42,14 @@ export default function Table() {
 
   return (
     <section>
+      <div>
+        <input
+          type="text"
+          id="filterInput"
+          data-testid="name-filter"
+          onChange={ ({ target }) => setSearch(target.value) }
+        />
+      </div>
       <table>
         <thead>
           <tr>

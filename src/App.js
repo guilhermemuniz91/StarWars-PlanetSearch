@@ -3,13 +3,13 @@ import './App.css';
 import Table from './Components/Table';
 import Provider from './Context/Provider';
 import NumericFilters from './Components/NumericFilters';
-import NameFilter from './Components/NameFilter';
+// import NameFilter from './Components/NameFilter';
 import SelectedFilters from './Components/SelectedFilters';
 
 function App() {
   return (
     <Provider>
-      <NameFilter />
+      {/* <NameFilter /> */}
       <NumericFilters />
       <SelectedFilters />
       <Table />
