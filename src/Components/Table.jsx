@@ -4,6 +4,7 @@ import planetContext from '../Context/Context';
 export default function Table() {
   const { search, filtersList,
     apiData,
+    filters,
   } = useContext(planetContext);
   let planetList = apiData;
 
@@ -17,6 +18,22 @@ export default function Table() {
     }
     return planetsFilter.filter((planet) => Number(planet[column]) === Number(value));
   };
+
+  const magicNumber = -1;
+  planetList.sort((a, b) => {
+    switch (filters.order.sort) {
+    case 'ASC':
+      return b[filters.order.column] === 'unknown'
+        ? magicNumber
+        : Number(a[filters.order.column]) - Number(b[filters.order.column]);
+    case 'DESC':
+      return b[filters.order.column] === 'unknown'
+        ? magicNumber
+        : Number(b[filters.order.column]) - Number(a[filters.order.column]);
+    default:
+      return 0;
+    }
+  });
 
   filtersList.forEach((filter) => {
     planetList = filterByNumericValues(planetList, filter);
@@ -47,7 +64,7 @@ export default function Table() {
             .filter((planetFilter) => planetFilter.name.includes(search.toLowerCase()))
             .map((planet) => (
               <tr key={ planet.name }>
-                <td>{ planet.name }</td>
+                <td data-testid="planet-name">{ planet.name }</td>
                 <td>{ planet.rotation_period }</td>
                 <td>{ planet.orbital_period }</td>
                 <td>{ planet.diameter }</td>
