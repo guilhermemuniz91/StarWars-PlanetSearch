@@ -7,6 +7,7 @@ export default function NumericFilters() {
   ]);
 
   const {
+    apiData, setFilteredNumber,
     setFiltersList,
     filtersList, filters, setFilters } = useContext(planetContext);
 
@@ -15,6 +16,11 @@ export default function NumericFilters() {
     setOptions(filterOptions);
     setFilters({ ...filters, column: filterOptions[0] });
     setFiltersList([...filtersList, filters]);
+  };
+
+  const handleRemove = () => {
+    setFiltersList([]);
+    setFilteredNumber(apiData);
   };
 
   return (
@@ -53,6 +59,13 @@ export default function NumericFilters() {
         onClick={ handleClick }
       >
         Filtrar
+      </button>
+      <button
+        type="number"
+        data-testid="button-remove-filters"
+        onClick={ handleRemove }
+      >
+        Remover filtros
       </button>
     </div>
   );
